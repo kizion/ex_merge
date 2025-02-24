@@ -3,32 +3,32 @@ from flask import Flask, request, jsonify
 app = Flask(__name__)
 
 # In-memory database
-todos = []
+items = []
 
-@app.route('/todos', methods=['GET'])
-def get_todos():
-    return jsonify(todos), 200
+@app.route('/items', methods=['GET'])
+def get_items():
+    return jsonify(items), 200
 
-@app.route('/todos', methods=['POST'])
+@app.route('/items', methods=['POST'])
 def add_item():
-    items = request.json
-    items.append(todo)
-    return jsonify(todo), 201
+    item = request.json
+    items.append(item)
+    return jsonify(item), 201
 
-@app.route('/todos/<int:todo_id>', methods=['PUT'])
-def update_todo(todo_id):
-    if todo_id >= len(todos) or todo_id < 0:
+@app.route('/items/<int:item_id>', methods=['PUT'])
+def update_item(item_id):
+    if item_id >= len(items) or item_id < 0:
         return jsonify({'error': 'Todo not found'}), 404
-    todo = request.json
-    todos[todo_id] = todo
-    return jsonify(todo), 200
+    item = request.json
+    items[item_id] = item
+    return jsonify(item), 200
 
-@app.route('/todos/<int:todo_id>', methods=['DELETE'])
-def delete_todo(todo_id):
-    if todo_id >= len(todos) or todo_id < 0:
+@app.route('/items/<int:item_id>', methods=['DELETE'])
+def delete_item(item_id):
+    if item_id >= len(items) or item_id < 0:
         return jsonify({'error': 'Todo not found'}), 404
-    todo = todos.pop(todo_id)
-    return jsonify(todo), 200
+    item = items.pop(item_id)
+    return jsonify(item), 200
 
 if __name__ == '__main__':
     app.run(debug=True)
