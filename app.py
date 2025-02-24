@@ -12,7 +12,11 @@ def get_items():
 @app.route('/items', methods=['POST'])
 def add_item():
     item = request.json
-    items.append(item)
+    # add item only if it is not already present
+    if item in items:
+        return jsonify({'error': 'Item already exists'}), 400
+    else:
+        items.append(item)
     return jsonify(item), 201
 
 @app.route('/items/<int:item_id>', methods=['PUT'])
